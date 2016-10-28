@@ -44,7 +44,7 @@ function generateCsv($) {
   let csv = json2csv({data: rows, fields: headers}); // convert to a CSV
 
   // write the new CSV
-  fs.writeFile('cases.csv', csv, (err) => {
+  fs.writeFile('cases.csv', csv + "\n", (err) => {
     if (err) throw err;
     console.log('file saved successfully');
   });
