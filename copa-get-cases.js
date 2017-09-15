@@ -6,7 +6,7 @@ let Minimize = require('minimize');
 let cheerio = require('cheerio');
 let json2csv = require('json2csv');
 
-let url = "http://www.iprachicago.org/wp-content/themes/ipra/DynamicSearch.php?ss=&alt-ipracats=&notificationStartDate=&alt-notificationStartDate=&notificationEndDate=&alt-notificationEndDate=&incidentStartDate=&alt-incidentStartDate=&incidentEndDate=&alt-incidentEndDate=&district=";
+let url = "http://www.chicagocopa.org/wp-content/themes/copa/DynamicSearch.php?ss=&alt-ipracats=&notificationStartDate=&alt-notificationStartDate=&notificationEndDate=&alt-notificationEndDate=&incidentStartDate=&alt-incidentStartDate=&incidentEndDate=&alt-incidentEndDate=&district=";
 
 request(url, (error, response, body) => {
   if (!error && response.statusCode == 200) {
@@ -34,8 +34,8 @@ function generateCsv($) {
     rows[i][headers[0]] = $(elem).children('th').children('a').attr('href');  // URL
     rows[i][headers[1]] = $(elem).children('th').text();                      // Log#
     rows[i][headers[2]] = $(elem).children('td:nth-of-type(1)').text();       // Incident Types
-    rows[i][headers[3]] = $(elem).children('td:nth-of-type(2)').text();       // IPRA Notification Date
-    rows[i][headers[4]] = $(elem).children('td:nth-of-type(3)').text();       // Incident Date & Time
+    rows[i][headers[3]] = $(elem).children('td:nth-of-type(2)').contents()[1].data;       // COPA Notification Date
+    rows[i][headers[4]] = $(elem).children('td:nth-of-type(3)').contents()[1].data;       // Incident Date & Time
     rows[i][headers[5]] = $(elem).children('td:nth-of-type(4)').text();       // District of Occurrence
   });
 

@@ -1,19 +1,19 @@
 {
-  "name": "ipra-cases",
-  "version": "1.0.0",
-  "description": "Saving a CSV of all cases stored on the IPRA Chicago website",
+  "name": "copa-cases",
+  "version": "1.1.0",
+  "description": "Saving a CSV of all cases stored on the COPA (formerly IPRA) Chicago website",
   "author": "Eric Tendian <eric@crimeisdown.com>",
   "scripts": {
-    "scrape": "node ipra-get-cases.js",
+    "scrape": "node copa-get-cases.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "main": "ipra-get-cases.js",
+  "main": "copa-get-cases.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CrimeIsDown/ipra-cases"
+    "url": "https://github.com/CrimeIsDown/copa-cases"
   },
   "bugs": {
-    "url": "https://github.com/CrimeIsDown/ipra-cases/issues"
+    "url": "https://github.com/CrimeIsDown/copa-cases/issues"
   },
   "keywords": [
     "chicago",
@@ -23,9 +23,9 @@
   ],
   "dependencies": {
     "cheerio": "^0.22.0",
-    "json2csv": "^3.6.3",
-    "minimize": "^2.0.0",
-    "request": "^2.74.0"
+    "json2csv": "^3.11.2",
+    "minimize": "^2.1.0",
+    "request": "^2.81.0"
   },
   "license": "MIT"
 }
