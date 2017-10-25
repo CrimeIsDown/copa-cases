@@ -34,8 +34,16 @@ function generateCsv($) {
     rows[i][headers[0]] = $(elem).children('th').children('a').attr('href');  // URL
     rows[i][headers[1]] = $(elem).children('th').text();                      // Log#
     rows[i][headers[2]] = $(elem).children('td:nth-of-type(1)').text();       // Incident Types
-    rows[i][headers[3]] = $(elem).children('td:nth-of-type(2)').contents()[1].data;       // COPA Notification Date
-    rows[i][headers[4]] = $(elem).children('td:nth-of-type(3)').contents()[1].data;       // Incident Date & Time
+    if ($(elem).children('td:nth-of-type(2)').contents()[1] !== undefined) {
+      rows[i][headers[3]] = $(elem).children('td:nth-of-type(2)').contents()[1].data;       // COPA Notification Date
+    } else {
+      rows[i][headers[3]] = $(elem).children('td:nth-of-type(2)').text();
+    }
+    if ($(elem).children('td:nth-of-type(3)').contents()[1] !== undefined) {
+      rows[i][headers[4]] = $(elem).children('td:nth-of-type(3)').contents()[1].data;       // Incident Date & Time
+    } else {
+      rows[i][headers[4]] = $(elem).children('td:nth-of-type(3)').text();
+    }
     rows[i][headers[5]] = $(elem).children('td:nth-of-type(4)').text();       // District of Occurrence
   });
 
