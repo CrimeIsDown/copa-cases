@@ -6,7 +6,7 @@ let Minimize = require('minimize');
 let cheerio = require('cheerio');
 let json2csv = require('json2csv');
 
-let url = "http://www.chicagocopa.org/wp-content/themes/copa/DynamicSearch.php?ss=&alt-ipracats=&notificationStartDate=&alt-notificationStartDate=&notificationEndDate=&alt-notificationEndDate=&incidentStartDate=&alt-incidentStartDate=&incidentEndDate=&alt-incidentEndDate=&district=";
+let url = "https://www.chicagocopa.org/wp-content/themes/copa/DynamicSearch.php?ss=&alt-ipracats=&notificationStartDate=&alt-notificationStartDate=&notificationEndDate=&alt-notificationEndDate=&incidentStartDate=&alt-incidentStartDate=&incidentEndDate=&alt-incidentEndDate=&district=";
 
 request(url, (error, response, body) => {
   if (!error && response.statusCode == 200) {
