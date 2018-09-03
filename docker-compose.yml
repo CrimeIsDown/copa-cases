@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  updater:
+    build: .
+    volumes:
+      - /home/eric/.ssh:/root/.ssh
