@@ -1,12 +1,18 @@
-FROM node:8-alpine
+FROM node:lts-alpine
 
 RUN apk --update upgrade \
- && apk add --no-cache git openssh-client \
+ && apk add --no-cache git openssh-client curl jq \
  && update-ca-certificates
 
 RUN git config --global user.email "erictendian@gmail.com" \
  && git config --global user.name "Eric Tendian"
 
-COPY update.sh .
+RUN git clone https://github.com/CrimeIsDown/copa-cases.git
 
-CMD ["/update.sh"]
+WORKDIR /copa-cases
+COPY package.json .
+RUN npm install
+
+COPY update.sh copa-get-cases.js ./
+
+CMD ["/copa-cases/update.sh"]

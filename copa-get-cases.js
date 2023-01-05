@@ -1,50 +1,40 @@
 'use strict';
 
 let fs = require('fs');
-let request = require('request');
 let Minimize = require('minimize');
 let cheerio = require('cheerio');
 let json2csv = require('json2csv');
 
-let url = "https://www.chicagocopa.org/wp-content/themes/copa/DynamicSearch.php?ss=&alt-ipracats=&notificationStartDate=&alt-notificationStartDate=&notificationEndDate=&alt-notificationEndDate=&incidentStartDate=&alt-incidentStartDate=&incidentEndDate=&alt-incidentEndDate=&district=";
-
-request(url, (error, response, body) => {
-  if (!error && response.statusCode == 200) {
-    let html = JSON.parse(body).caseSearch.items; // get the HTML inside the JSON
+fs.readFile('cases.html', 'utf8', (error, html) => {
+  if (error) {
+    throw error
+  } else {
+    html = html.replace(/<!--/g, '').replace(/-->/g, '');
     let miniHtml = new Minimize().parse(html); // pull out all the extra spaces, tabs, newlines, and other wierd stuff
     generateCsv(cheerio.load(miniHtml)); // load that HTML into cheerio and start parsing
-  } else {
-    throw error;
   }
 });
 
 function generateCsv($) {
-  let headers = [];
+  let headers = [
+    'URL',
+    'Log#',
+    'Incident Types',
+    'IPRA/COPA Notification Date',
+    'Incident Date & Time',
+    'District of Occurrence'
+  ];
   let rows = [];
-
-  $('table thead th').each((i, elem) => {
-    headers[i] = $(elem).text(); // pull out column headers
-  });
-
-  headers.unshift('URL'); // add URL to the beginning of the array
 
   // write the individual rows
   $('table tbody tr').each((i, elem) => {
     rows[i] = {};
     rows[i][headers[0]] = $(elem).children('th').children('a').attr('href');  // URL
     rows[i][headers[1]] = $(elem).children('th').text();                      // Log#
-    rows[i][headers[2]] = $(elem).children('td:nth-of-type(1)').text();       // Incident Types
-    if ($(elem).children('td:nth-of-type(2)').contents()[1] !== undefined) {
-      rows[i][headers[3]] = $(elem).children('td:nth-of-type(2)').contents()[1].data;       // COPA Notification Date
-    } else {
-      rows[i][headers[3]] = $(elem).children('td:nth-of-type(2)').text();
-    }
-    if ($(elem).children('td:nth-of-type(3)').contents()[1] !== undefined) {
-      rows[i][headers[4]] = $(elem).children('td:nth-of-type(3)').contents()[1].data;       // Incident Date & Time
-    } else {
-      rows[i][headers[4]] = $(elem).children('td:nth-of-type(3)').text();
-    }
-    rows[i][headers[5]] = $(elem).children('td:nth-of-type(4)').text();       // District of Occurrence
+    rows[i][headers[2]] = $(elem).children('td:nth-of-type(8)').text();       // Incident Types
+    rows[i][headers[3]] = $(elem).children('td:nth-of-type(3)')[0].childNodes[1]?.nodeValue || 'N/A';       // COPA Notification Date
+    rows[i][headers[4]] = $(elem).children('td:nth-of-type(1)')[0].childNodes[1]?.nodeValue || 'N/A';       // Incident Date & Time
+    rows[i][headers[5]] = $(elem).children('td:nth-of-type(2)').text();       // District of Occurrence
   });
 
   rows = sortByKey(rows, headers[1]); // sort by Log#

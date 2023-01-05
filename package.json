@@ -24,8 +24,7 @@
   "dependencies": {
     "cheerio": "^0.22.0",
     "json2csv": "^3.11.2",
-    "minimize": "^2.1.0",
-    "request": "^2.81.0"
+    "minimize": "^2.1.0"
   },
   "license": "MIT"
 }

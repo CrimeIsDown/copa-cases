@@ -5,3 +5,5 @@ services:
     build: .
     volumes:
       - /home/eric/.ssh:/root/.ssh
+      - ./copa-get-cases.js:/copa-cases/copa-get-cases.js
+      - ./update.sh:/copa-cases/update.sh
