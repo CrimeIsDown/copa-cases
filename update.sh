@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-git pull
+git pull --rebase
 
 curl -fSs "https://www.chicagocopa.org/wp-content/themes/copa/DynamicSearch.php?ss=&alt-ipracats=&notificationStartDate=&alt-notificationStartDate=&notificationEndDate=&alt-notificationEndDate=&incidentStartDate=&alt-incidentStartDate=&incidentEndDate=&alt-incidentEndDate=&district=" | \
 jq -r '.caseSearch.items' > cases.html

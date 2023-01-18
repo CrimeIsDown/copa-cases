@@ -10,7 +10,7 @@ RUN git config --global user.email "erictendian@gmail.com" \
 RUN git clone https://github.com/CrimeIsDown/copa-cases.git
 
 WORKDIR /copa-cases
-COPY package.json .
+COPY package.json package-lock.json ./
 RUN npm install
 
 COPY update.sh copa-get-cases.js ./
