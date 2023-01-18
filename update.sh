@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-set -ex
+set -euo pipefail
 
 git pull
 

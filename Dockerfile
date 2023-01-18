@@ -1,7 +1,7 @@
 FROM node:lts-alpine
 
 RUN apk --update upgrade \
- && apk add --no-cache git openssh-client curl jq \
+ && apk add --no-cache bash git openssh-client curl jq \
  && update-ca-certificates
 
 RUN git config --global user.email "erictendian@gmail.com" \
